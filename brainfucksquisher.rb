@@ -1,7 +1,7 @@
-x = File.open("brainfizzannottated.txt", "r").read
+x = File.open("brainfizz.txt", "r").read
 
-p output = x.scan(/[\[<>+-.\]]/).join
+p output = x.scan(/[\[\]><+-.,]/).join
 
-File.open("nospace.txt", 'w') { |file| file.write(output) }
+File.open("nospace2.txt", 'w') { |file| file.write(output) }
 
 
