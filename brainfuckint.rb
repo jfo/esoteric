@@ -1,6 +1,6 @@
 class String
   def to_bf
-    Brainfuck.new(self.split(//))
+    Brainfuck.new(self.scan(/[-\[\]+><.,]/))
   end
 end
 
@@ -25,8 +25,9 @@ class Brainfuck
 
   def run(v = 0)
     until @progindex == @prog.length 
+
       if v != 0
-        #puts @prog[@progindex]
+#        puts @prog[@progindex]
       end
 
       if @prog[@progindex] == "<" 
@@ -68,44 +69,40 @@ class Brainfuck
             end
           end
 
-
       elsif @prog[@progindex] == "]"
-          if @ram[@pointer] != 0 
-            @depth += 1
-            until @prog[@progindex ] == "[" && @depth == 0
+        if @ram[@pointer] != 0 
+          @depth += 1
+          until @prog[@progindex ] == "[" && @depth == 0
             @progindex -= 1 
             @depth += 1 if @prog[@progindex] == "]"
             @depth -= 1 if @prog[@progindex] == "["
-            end 
-          end
+          end 
+        end
       end
 
     if v != 0
       puts @ram.join(" ")
-      puts @pointer
-      puts @prog[@progindex]
-      gets
+      sleep 0.0002
     end
 
     @progindex += 1
-    
     end
   end
 end
 
-
-#        if @ram[@pointer] > 255
-#          @ram[@pointer] -= 256
-  #        end
-##
-#        if @ram[@pointer] < 0
-#          @ram[@pointer] += 256
-#        end
-
 x = ">+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]
 <.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.".to_bf
 
+
 z = ">>>+[>+++++<<[-]>-]>+".to_bf
-y = File.open("nospace.txt", "r").read.to_bf
+y = File.open("brainfizz.txt", "r").read.to_bf
+
+
+system("clear")
+
+y.show
+gets
+
 y.run
 
+x.run
