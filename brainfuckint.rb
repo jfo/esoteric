@@ -1,7 +1,24 @@
 class String
+
+  #creates a new brainfuck program object by reducing a string to only brainfuck symbols, including "#"
   def to_bf
     Brainfuck.new(self.scan(/[-\[\]+><.,]/))
   end
+
+  def encode_bf
+    all =[]
+    self.split(//).each {|char| all << char.ord}
+
+    program_string = "" 
+
+    all.each do |num|
+      num.times {program_string << "+"}
+      program_string << ".>"
+    end
+
+    return program_string.to_bf
+  end
+
 end
 
 class Brainfuck
@@ -24,11 +41,8 @@ class Brainfuck
   end
 
   def run(v = 0)
-    until @progindex == @prog.length 
 
-      if v != 0
-#        puts @prog[@progindex]
-      end
+    until @progindex == @prog.length 
 
       if @prog[@progindex] == "<" 
            @pointer -= 1 
@@ -48,10 +62,13 @@ class Brainfuck
 
       elsif @prog[@progindex] == "." 
         print @ram[@pointer].chr
+
       elsif @prog[@progindex] == "," 
         @ram[@pointer] = gets.slice(0).ord
+
       elsif @prog[@progindex] == "+" 
         @ram[@pointer] += 1 
+
       elsif @prog[@progindex] == "-"
         @ram[@pointer] -=  1
         if @ram[@pointer] < -10
@@ -80,29 +97,26 @@ class Brainfuck
         end
       end
 
-    if v != 0
-      puts @ram.join(" ")
-      sleep 0.0002
+      if v != 0
+        puts @ram.join(" ")
+        sleep v
+      end
+      @progindex += 1
     end
-
-    @progindex += 1
-    end
+    self
   end
 end
 
+
 x = ">+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]
-<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.".to_bf
+#<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.".to_bf
+#z = ">>>+[>+++++<<[-]>-]>+".to_bf
 
-
-z = ">>>+[>+++++<<[-]>-]>+".to_bf
-y = File.open("brainfizz.txt", "r").read.to_bf
-
-
+#x = File.open("brainfizz.txt", "r").read.to_bf
 system("clear")
-
-y.show
-gets
-
-y.run
-
+x.show
 x.run
+
+
+
+

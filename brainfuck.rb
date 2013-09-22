@@ -31,6 +31,7 @@ until seven == 0
           six = 5
         end
         six -= 1
+
       else
         if six == 0
           print ten

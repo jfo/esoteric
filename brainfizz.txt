@@ -1,6 +1,7 @@
 
 MOVE 20 CELLS TO THE RIGHT TO "CLEAR" MEMORY
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>
+
 
 Initially Move to cell 7
 <<+>+>
