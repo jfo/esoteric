@@ -9,7 +9,7 @@ class String
     all =[]
     self.split(//).each {|char| all << char.ord}
 
-    program_string = "" 
+    program_string = ""
 
     all.each do |num|
       num.times {program_string << "+"}
@@ -25,8 +25,8 @@ class Brainfuck
   attr_accessor :ram, :pointer, :prog, :progindex, :depth
 
   def initialize(x = [])
-    @prog = x  
-    @ram = [0] 
+    @prog = x
+    @ram = [0]
     @pointer = 0
     @progindex = 0
     @depth = 0
@@ -34,7 +34,7 @@ class Brainfuck
 
   def show
     puts "Memory: #{@ram.join(" ")}"
-    puts "Program: #{@prog.join(" ")}" 
+    puts "Program: #{@prog.join(" ")}"
     puts "Pointer: #{@pointer}"
     puts "Progindex: #{@progindex}"
     self
@@ -42,32 +42,32 @@ class Brainfuck
 
   def run(v = 0)
 
-    until @progindex == @prog.length 
+    until @progindex == @prog.length
 
-      if @prog[@progindex] == "<" 
-           @pointer -= 1 
+      if @prog[@progindex] == "<"
+           @pointer -= 1
         if @ram[@pointer] == nil
           @ram << 0
         end
 
-      elsif @prog[@progindex] == ">" 
+      elsif @prog[@progindex] == ">"
         @pointer += 1
         if @ram[@pointer] == nil
           @ram[@pointer] = 0
         end
 
-      elsif @prog[@progindex] == "#" 
+      elsif @prog[@progindex] == "#"
         puts @pointer
         gets
 
-      elsif @prog[@progindex] == "." 
+      elsif @prog[@progindex] == "."
         print @ram[@pointer].chr
 
-      elsif @prog[@progindex] == "," 
+      elsif @prog[@progindex] == ","
         @ram[@pointer] = gets.slice(0).ord
 
-      elsif @prog[@progindex] == "+" 
-        @ram[@pointer] += 1 
+      elsif @prog[@progindex] == "+"
+        @ram[@pointer] += 1
 
       elsif @prog[@progindex] == "-"
         @ram[@pointer] -=  1
@@ -77,23 +77,23 @@ class Brainfuck
 
       elsif @prog[@progindex] == "["
 
-          if @ram[@pointer] == 0 
+          if @ram[@pointer] == 0
             @depth += 1
             until @prog[@progindex] == "]" && @depth == 0
-             @progindex += 1 
+             @progindex += 1
              @depth += 1 if @prog[@progindex] == "["
              @depth -= 1 if @prog[@progindex] == "]"
             end
           end
 
       elsif @prog[@progindex] == "]"
-        if @ram[@pointer] != 0 
+        if @ram[@pointer] != 0
           @depth += 1
           until @prog[@progindex ] == "[" && @depth == 0
-            @progindex -= 1 
+            @progindex -= 1
             @depth += 1 if @prog[@progindex] == "]"
             @depth -= 1 if @prog[@progindex] == "["
-          end 
+          end
         end
       end
 
